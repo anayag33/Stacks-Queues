@@ -1,0 +1,339 @@
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+        //createStack()
+        int[] myStack = createStack();
+        //push()
+        for(int i=10; i>0; i--)
+            push(myStack,i);
+        System.out.println("You should print [10,9,8,7,6,5,4,3,2,1]");
+        System.out.println(prettyPrintStack(myStack));
+        //pop()
+        System.out.println("This should print \n1\n2\n3\n4\n5\n6\n7\n8\n9\n10");
+        for(int i=10; i>0; i--)
+            System.out.println(pop(myStack));
+        for(int i=1; i<101; i++)
+            push(myStack, i);
+        //prettyPrintStack()
+        System.out.println(prettyPrintStack(myStack));
+        //dumpStack()
+        System.out.println(dumpStack(myStack));
+        //task2()
+        task2();
+        //printReportFILO()
+        int[] sharesStack = createStack();
+        int[] priceStack = createStack();
+        push(sharesStack,100);
+        push(priceStack,20000);
+        push(sharesStack,50);
+        push(priceStack,21000);
+        System.out.println("This should print: \nShares\tPrice\n100\t\t$200.00\n50\t\t$210.00");
+        printReportFILO(sharesStack, priceStack);
+        //buyFILO()
+        buyFILO(sharesStack, priceStack, 20, 30050);
+        System.out.println("This should print -61000.");
+        //sellFILO()
+        System.out.println(sellFILO(sharesStack, priceStack, 30, 25000));
+        System.out.println("This should print: \nShares\tPrice\n100\t\t$200.00\n40\t\t$210.00");
+        printReportFILO(sharesStack, priceStack);
+        System.out.println(runReportFILO(sharesStack, priceStack));
+        //averageFILO()
+        push(sharesStack,10);
+        push(priceStack,19999);
+        System.out.println("This should print 20266.");
+        System.out.println(averageFILO(sharesStack, priceStack));
+
+        //createQueue()
+        int[] myQueue = createQueue();
+        //enqueue()
+        for(int i=10; i>0; i--)
+            enqueue(myQueue,i);
+        System.out.println("You should print [10,9,8,7,6,5,4,3,2,1]");
+        System.out.println(prettyPrintQueue(myQueue));
+        //dequeue()
+        System.out.println("This should print \n10\n9\n8\n7\n6\n5\n4\n3\n2\n1");
+        for(int i=10; i>0; i--)
+            System.out.println(dequeue(myQueue));
+        for(int i=1; i<101; i++)
+            enqueue(myQueue, i);
+        //prettyPrintQueue()
+        System.out.println(prettyPrintQueue(myQueue));
+        //dumpQueue()
+        System.out.println(dumpQueue(myQueue));
+        //task5()
+        task5();
+        //merge()
+        int[] a = createQueue();
+        int[] b = createQueue();
+        for(int i=1; i<=5; i+=2)
+            enqueue(a, i);
+        for(int i=2; i<=6; i+=2)
+            enqueue(b, i);
+        enqueue(a, 40000);
+        enqueue(a, 45000);
+        enqueue(b, 30000);
+        System.out.println("You should print [1,2,3,4,5,6,30000,40000,45000]");
+        System.out.println(prettyPrintQueue(merge(a, b)));
+
+    }//end main()
+    //TASK 1
+    //createStack()
+    //Create and return a stack, which is a 101 element integer array.
+    public static int[] createStack()
+    {
+        int [] myStack = new int[101];//length is 101
+        return myStack;
+    }//end createStack
+    //push()
+    // This function should push data onto the stack and increment the number of elements by 1.
+    public static void push(int[] stack, int data)
+    {
+        int firstValue = stack [0];//remembers first value
+        stack [firstValue + 1] = data;//adds new value
+        stack[0] = stack[0] + 1;//increments stack[0] by 1
+    }//end push()
+    //pop()
+    //This function should pop data off of the stack and decrement the number of elements by 1.
+    public static int pop(int[] stack)
+    {
+        int initial = stack[0];
+        int rv = stack[stack[0]];
+        stack [0] = stack[0] - 1;//decrements stack[0] by 1
+        return rv;//removed number
+    }//end pop()
+    //prettyPrintStack()
+    //Return as a string the stack using square brackets with each term separated by commas.
+    //Ex, {3,1,2,3,4} => [1,2,3] because the number of terms is 3, so the stack goes from index 1 to 3, not including 4 and above.
+    public static String prettyPrintStack(int[] stack)
+    {
+        String rv = "[";//starts bracket
+        for (int i = 1; i< stack[0] + 1 ; i++)
+        {
+            rv = rv + stack[i] + ",";//adds new value each time
+        }
+        rv = rv.substring(0, rv.length() - 1) + "]";//cuts off last comma and adds bracket
+        return rv;
+    }//end prettyPrintStack()
+    //dumpStack()
+    //Return the entire array, including the 0th element representing the number of terms.
+    //Ex, {1,2,3,4,2,0,0,0,...} => {1,2,3,4,2,0,0,0,...}. It's not a proper stack, so use {}'s.
+    public static String dumpStack(int[] stack)
+    {
+        String rv = "{";//starts bracket
+        for (int i = 0; i< stack.length; i++)
+        {
+            rv = rv + stack[i] + ",";//adds new value each time
+        }
+        rv = rv.substring(0, rv.length() -1) + "}";//cuts off last comma and adds bracket
+        return rv;
+    }//end dumpStack()
+    //TASK 2
+    //task2()
+    //Write code that does the following and prints the results in public static void task2())
+    //In task2(), create a stack and push the values 9,8,7,6,5,4,3 in order.
+    public static void task2()
+    {
+        int [] b = createStack();
+        push(b, 9);
+        push(b, 8);
+        push(b, 7);
+        push(b, 6);
+        push(b, 5);
+        push(b, 4);
+        push(b, 3);//9876543
+        pop(b);
+        pop(b);
+        pop(b);//9876
+        push(b, 1);
+        push(b, 2);
+        push(b, 3);
+        push(b, 4);//98761234
+        pop(b);
+        pop(b);
+        pop(b);
+        pop(b);
+        pop(b);//987
+        System.out.println(prettyPrintStack(b));
+    }//end task2()
+    //TASK 3
+    //printReportFILO()
+    //should print out a nice looking summary of stock purchases.
+    public static void printReportFILO(int[] shares, int[] price)
+    {
+        System.out.println("Shares\tPrice");//creates headers
+        for (int i = 1; i <shares[0] + 1; i++)
+        {
+            System.out.println(shares[i] + "\t\t$" + (price[i]/100));//lists price and shares
+        }
+    }//end printReportFILO()
+    //runReportFILO()
+    //runReportFILO() is the same as printReportFILO(), except it returns a String instead of printing the report.
+    public static String runReportFILO(int[] shares, int[] price)
+    {
+        String rv = dumpStack(shares);//creates string of shares array
+        String rv2 = dumpStack(price);//creates string of prices array
+        return rv + "\n" + rv2;
+    }//end runReportFILO()
+    //buyFILO
+    //buyFILO() puts the trade data (numShares and pricePerShare) into our stacks.
+    public static void buyFILO(int[] shares, int[] price, int numShares, int pricePerShare)
+    {
+        push(shares, numShares);//adds to shares
+        push(price, pricePerShare);//adds to price
+        System.out.println(dumpStack(shares));
+        System.out.println(dumpStack(price));
+    }//end buyFILO()
+    //sellFILO
+    //sellFILO() sells the appropriate number of shares based on the trade data (numShares and pricePerShare)
+    //and returns how much money was made or lost in pennies total. Please remember to consider odd lots, meaning
+    //you may not assume you will always buy and sell a matching number of shares. Example, you can buy 100 shares,
+    //then immediately sell 1 share. You should have 99 shares remaining.
+    public static int sellFILO(int[] shares, int[] price, int numShares, int pricePerShare)
+    {
+        int newShares = numShares - shares[shares[0]];//subtracts numShares from latest shares
+        while (newShares > 0)
+        {
+            newShares = newShares - shares[shares[0] - 1];//subtracts leftovers from next value
+        }
+        shares[shares[0] - 1] = -1*newShares;//creates new shares value for array
+        pop(shares);//removes latest shares value
+        pop(price);//removes latest price value
+        int value = (shares[shares[0]+1])*(price[price[0]+1]);//price of 1st shares
+        value = value + (10*price[price[0]]);//price of 1st + 2nd shares
+        value = (numShares*pricePerShare) - value;//subtracts sold shares
+        return value;
+    }//end sellFILO
+    //averageFILO()
+    //averageFILO() returns the average purchase price of all shares purchased.
+    //By the end of this function, all information should match what was stored before.
+    //Round to the nearest penny, do not always round down.
+    public static int averageFILO(int[] shares, int[] price)
+    {
+        int totalPrice = 0;
+        int totalShares = 0;
+        int rv = 0;
+        for (int i = 1; i <shares[0] + 1; i++)
+        {
+            totalShares = totalShares + shares[i];//adds shares together
+            totalPrice = totalPrice + (shares[i]*price[i]);//adds prices together
+        }
+        rv = totalPrice / totalShares;//divides prices by total number of shares
+        return rv;
+    }//end average FILO()
+
+    //TASK 4
+    //createQueue()
+    //Create and return a queue, which is a 101 element integer array.
+    public static int[] createQueue()
+    {
+        int [] myQueue = new int[101];//101 is length
+        return myQueue;
+    }//end createQueue()
+    //enqueue()
+    //This function should enqueue data onto the queue and increment the number of elements by 1.
+    public static void enqueue(int[] queue, int data)
+    {
+        int firstValue = queue[0];
+        queue [firstValue + 1] = data;//adds data value
+        queue [0] = queue [0] + 1;//increments queue[0] by 1
+    }//end enqueue()
+    //dequeue()
+    //This function should dequeue data from the queue and decrement the number of elements by 1.
+    public static int dequeue(int[] queue)
+    {
+        int rv = queue[1];//remembers removed value
+        for (int i = 1; i< queue[0]; i++)
+        {
+            queue[i] = queue[i+1];//changes value of removed value
+        }
+        queue [0] = queue [0] - 1;//decrements queue[0] by 1
+        return rv;
+    }//end dequeue()
+    //prettyPrintQueue()
+    //Return as a String the queue using square brackets with each term separated by commas.
+    //Ex, {2,1,2,3,4,0,0,0,...} => [1,2] because the number of elements is 2, so the queue goes from index 1 to 2, not including 3 and above.
+    public static String prettyPrintQueue(int[] queue)
+    {
+        String rv = "[";//starts bracket
+        for (int i = 1; i< queue[0] + 1 ; i++)
+        {
+            rv = rv + queue[i] + ",";//adds new value each time
+        }
+        rv = rv.substring(0, rv.length() -1) + "]";//cuts off last comma and adds bracket
+        return rv;
+    }//end prettyPrintQueue()
+    //dumpQueue()
+    //Return the entire array, including the 0th element representing the number of elements.
+    //Ex, {1,2,3,4,2,0,0,0,...} => {1,2,3,4,2,0,0,0,...}. It's not a proper queue, so use {}'s.
+    public static String dumpQueue(int[] queue)
+    {
+        String rv = "{";//starts bracket
+        for (int i = 0; i< queue.length; i++)
+        {
+            rv = rv + queue[i] + ",";//adds new value each time
+        }
+        rv = rv.substring(0, rv.length() -1) + "}";//cuts off last comma and adds bracket
+        return rv;
+    }//end dumpQueue()
+    //TASK 5
+    //task5()
+    public static void task5()
+    {
+        int [] c = createQueue();//new array
+        enqueue(c, 9);
+        enqueue(c, 8);
+        enqueue(c, 7);
+        enqueue(c, 6);
+        enqueue(c, 5);
+        enqueue(c, 4);
+        enqueue(c, 3);//9876543
+        dequeue(c);
+        dequeue(c);
+        dequeue(c);//6543
+        enqueue(c, 1);
+        enqueue(c, 2);
+        enqueue(c, 3);
+        enqueue(c, 4);//65431234
+        dequeue(c);
+        dequeue(c);
+        dequeue(c);
+        dequeue(c);
+        dequeue(c);//234
+        System.out.println(prettyPrintQueue(c));
+    }//end task5()
+    //TASK 6
+    //merge()
+    //they will be passed in as null, so include null checks.
+    //The merge() function from the Lab5: Array Functions takes 2 sorted arrays, and takes the smaller of the 2 elements off the top of both arrays.
+    // After copying an element to the resulting merged array, it is removed from consideration.
+    public static int[] merge(int[] a, int[] b)
+    {
+        int [] c = new int [(a[0] + b[0]) +1];//new array
+        for (int i = 1; i < c.length ; i++)//creates new array with all the values
+        {
+            c[0] = a[0] + b[0];//sets c[0] = 9
+            if (i < a[0] + 1)
+            {
+                c[i] = a[i];//assigns a values to c until a string is over
+            }
+            if (i >= a[0] + 1)
+            {
+                c[i] = b[i - (a[0])];//assigns b values to c until c length is reached
+            }
+        }
+        for (int k = 1; k < c.length; k++)//bubble sort, sorts array
+        {
+            for (int j = 1; j < c.length - k ; j++) {
+                if (c[j] > c[j + 1]) {
+                    int storage = c[j];//switches storage and a[j]
+                    c[j] = c[j + 1];//switches a[j] and a[j+1]
+                    c[j + 1] = storage;//switches a[j+1] and storage
+                }
+            }
+        }
+        return c;
+    }//end merge()
+
+}
